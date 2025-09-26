@@ -1,0 +1,9 @@
+
+/tmp/*
+/logs/*
+.DS_Store
+node_modules/
+.env
+dist/
+vendor/
+vendor_old/
