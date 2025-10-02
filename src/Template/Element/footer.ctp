@@ -7,6 +7,7 @@
  ?>
     <footer class="main-footer">
         <div class="<?php echo $pull;?> hidden-xs">
+          hola
           <b><?php echo __("Version");?></b> <?php echo $version;?>
         </div>
 
