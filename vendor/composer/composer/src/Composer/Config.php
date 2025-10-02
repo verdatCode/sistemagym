@@ -389,7 +389,8 @@ class Config
                 return $value;
 
             case 'discard-changes':
-                if ($env = $this->getComposerEnv('COMPOSER_DISCARD_CHANGES')) {
+                $env = $this->getComposerEnv('COMPOSER_DISCARD_CHANGES');
+                if ($env !== false) {
                     if (!in_array($env, array('stash', 'true', 'false', '1', '0'), true)) {
                         throw new \RuntimeException(
                             "Invalid value for COMPOSER_DISCARD_CHANGES: {$env}. Expected 1, 0, true, false or stash"
@@ -551,7 +552,7 @@ class Config
      * that overload config values.
      *
      * @param  string      $var
-     * @return string|bool
+     * @return string|false
      */
     private function getComposerEnv($var)
     {
@@ -586,8 +587,8 @@ class Config
      */
     public function prohibitUrlByConfig($url, IOInterface $io = null)
     {
-        // Return right away if the URL is malformed or custom (see issue #5173)
-        if (false === filter_var($url, FILTER_VALIDATE_URL)) {
+        // Return right away if the URL is malformed or custom (see issue #5173), but only for non-HTTP(S) URLs
+        if (false === filter_var($url, FILTER_VALIDATE_URL) && !Preg::isMatch('{^https?://}', $url)) {
             return;
         }
 

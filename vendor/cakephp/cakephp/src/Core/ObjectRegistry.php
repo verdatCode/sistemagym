@@ -20,7 +20,6 @@ use Cake\Event\EventListenerInterface;
 use Countable;
 use IteratorAggregate;
 use RuntimeException;
-use Traversable;
 
 /**
  * Acts as a registry/factory for objects.
@@ -362,7 +361,7 @@ abstract class ObjectRegistry implements Countable, IteratorAggregate
      *
      * @return \ArrayIterator
      */
-    public function getIterator(): Traversable
+    public function getIterator()
     {
         return new ArrayIterator($this->_loaded);
     }
@@ -372,7 +371,7 @@ abstract class ObjectRegistry implements Countable, IteratorAggregate
      *
      * @return int
      */
-    public function count(): int
+    public function count()
     {
         return count($this->_loaded);
     }

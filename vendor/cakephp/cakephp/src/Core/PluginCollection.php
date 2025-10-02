@@ -217,7 +217,7 @@ class PluginCollection implements Iterator, Countable
      *
      * @return int
      */
-    public function count():int
+    public function count()
     {
         return count($this->plugins);
     }
@@ -227,7 +227,7 @@ class PluginCollection implements Iterator, Countable
      *
      * @return void
      */
-    public function next(): void
+    public function next()
     {
         $this->positions[$this->loopDepth]++;
     }
@@ -237,7 +237,7 @@ class PluginCollection implements Iterator, Countable
      *
      * @return string
      */
-    public function key(): mixed
+    public function key()
     {
         return $this->names[$this->positions[$this->loopDepth]];
     }
@@ -247,7 +247,7 @@ class PluginCollection implements Iterator, Countable
      *
      * @return \Cake\Core\PluginInterface
      */
-    public function current(): mixed
+    public function current()
     {
         $position = $this->positions[$this->loopDepth];
         $name = $this->names[$position];
@@ -260,7 +260,7 @@ class PluginCollection implements Iterator, Countable
      *
      * @return void
      */
-    public function rewind(): void
+    public function rewind()
     {
         $this->positions[] = 0;
         $this->loopDepth += 1;
@@ -271,7 +271,7 @@ class PluginCollection implements Iterator, Countable
      *
      * @return bool
      */
-    public function valid(): bool
+    public function valid()
     {
         $valid = isset($this->names[$this->positions[$this->loopDepth]]);
         if (!$valid) {

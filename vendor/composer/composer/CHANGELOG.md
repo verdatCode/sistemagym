@@ -1,3 +1,51 @@
+### [2.2.25] 2024-12-11
+
+  * Fixed deprecation notices appearing on this LTS version in case it is used on modern PHP. Modern PHP support is not guaranteed nor tested for though and the main purpose of LTS releases is legacy PHP versions support. (#12217)
+  * Fixed issue on plugin upgrade when it defines multiple classes (#12226)
+  * Fixed duplicate errors appearing in the output depending on php settings (#12214)
+  * Fixed InstalledVersions returning duplicate data in some instances (#12225)
+
+### [2.2.24] 2024-06-10
+
+  * Security: Fixed command injection via malicious git branch name (GHSA-47f6-5gq3-vx9c / CVE-2024-35241)
+  * Security: Fixed multiple command injections via malicious git/hg branch names (GHSA-v9qv-c7wm-wgmf / CVE-2024-35242)
+  * Security: Fixed secure-http checks that could be bypassed by using malformed URL formats (fa3b9582c)
+  * Security: Fixed Filesystem::isLocalPath including windows-specific checks on linux (3c37a67c)
+  * Security: Fixed perforce argument escaping (3773f775)
+  * Security: Fixed handling of zip bombs when extracting archives (de5f7e32)
+  * Security: Fixed Windows command parameter escaping to prevent abuse of unicode characters with best fit encoding conversion (3130a7455, 04a63b324)
+
+### [2.2.23] 2024-02-08
+
+  * Security: Fixed code execution and possible privilege escalation via compromised vendor dir contents (GHSA-7c6p-848j-wh5h / CVE-2024-24821)
+
+### [2.2.22] 2023-09-29
+
+  * Security: Fixed possible remote code execution vulnerability if composer.phar is publicly accessible, executable as PHP, and register_argc_argv is enabled in php.ini (GHSA-jm6m-4632-36hf / CVE-2023-43655)
+  * Fixed authentication issue when downloading several files from private Bitbucket in parallel (#11464)
+  * Fixed handling of broken junctions on windows (#11550)
+  * Fixed loading of root aliases on path repo packages when doing partial updates (#11632)
+  * Fixed parsing of lib-curl-openssl version with OSX SecureTransport (#11534)
+  * Fixed binary proxies not being transparent when included by another PHP process and returning a value (#11454)
+  * Fixed support for plugin classes being marked as readonly (#11404)
+  * Fixed GitHub rate limit reporting (#11366)
+  * Fixed issue displaying solver problems with branch names containing `%` signs (#11359)
+
+### [2.2.21] 2023-02-15
+
+  * Fixed extra.plugin-optional support in PluginInstaller when doing pre-install checks (#11326)
+
+### [2.2.20] 2023-02-10
+
+  * Added extra.plugin-optional support for allow auto-disabling unknown plugins which are not critical when running non-interactive (#11315)
+
+### [2.2.19] 2023-02-04
+
+  * Fixed URL sanitizer to handle new GitHub personal access tokens format (#11137)
+  * Fixed cache keys to allow `_` to avoid conflicts between package names like `a-b` and `a_b` (#11229)
+  * Fixed handling of --ignore-platform-req with upper-bound ignores to not apply to conflict rules (#11037)
+  * Fixed handling of `COMPOSER_DISCARD_CHANGES` when set to `0`
+
 ### [2.2.18] 2022-08-20
 
   * Fixed `COMPOSER_NO_DEV` so it also works with `require` and `remove`'s `--update-no-dev` (#10995)
@@ -1476,6 +1524,13 @@
 
   * Initial release
 
+[2.2.25]: https://github.com/composer/composer/compare/2.2.24...2.2.25
+[2.2.24]: https://github.com/composer/composer/compare/2.2.23...2.2.24
+[2.2.23]: https://github.com/composer/composer/compare/2.2.22...2.2.23
+[2.2.22]: https://github.com/composer/composer/compare/2.2.21...2.2.22
+[2.2.21]: https://github.com/composer/composer/compare/2.2.20...2.2.21
+[2.2.20]: https://github.com/composer/composer/compare/2.2.19...2.2.20
+[2.2.19]: https://github.com/composer/composer/compare/2.2.18...2.2.19
 [2.2.18]: https://github.com/composer/composer/compare/2.2.17...2.2.18
 [2.2.17]: https://github.com/composer/composer/compare/2.2.16...2.2.17
 [2.2.16]: https://github.com/composer/composer/compare/2.2.15...2.2.16

@@ -47,7 +47,7 @@ use SimpleXMLElement;
  * Once made configuration profiles can be used to re-use across various email messages your
  * application sends.
  */
-class Email implements JsonSerializable
+class Email implements JsonSerializable, Serializable
 {
     use StaticConfigTrait;
     use ViewVarsTrait;
@@ -2798,7 +2798,7 @@ class Email implements JsonSerializable
      * @return array Serializable array of configuration properties.
      * @throws \Exception When a view var object can not be properly serialized.
      */
-    public function jsonSerialize(): mixed
+    public function jsonSerialize()
     {
         $properties = [
             '_to', '_from', '_sender', '_replyTo', '_cc', '_bcc', '_subject',

@@ -628,7 +628,13 @@ class Filesystem
      */
     public static function isLocalPath($path)
     {
-        return Preg::isMatch('{^(file://(?!//)|/(?!/)|/?[a-z]:[\\\\/]|\.\.[\\\\/]|[a-z0-9_.-]+[\\\\/])}i', $path);
+        // on windows, \\foo indicates network paths so we exclude those from local paths, however it is unsafe
+        // on linux as file:////foo (which would be a network path \\foo on windows) will resolve to /foo which could be a local path
+        if (Platform::isWindows()) {
+            return Preg::isMatch('{^(file://(?!//)|/(?!/)|/?[a-z]:[\\\\/]|\.\.[\\\\/]|[a-z0-9_.-]+[\\\\/])}i', $path);
+        }
+
+        return Preg::isMatch('{^(file://|/|/?[a-z]:[\\\\/]|\.\.[\\\\/]|[a-z0-9_.-]+[\\\\/])}i', $path);
     }
 
     /**
@@ -814,6 +820,12 @@ class Filesystem
         if (!is_dir($target)) {
             throw new IOException(sprintf('Cannot junction to "%s" as it is not a directory.', $target), 0, null, $target);
         }
+
+        // Removing any previously junction to ensure clean execution.
+        if (!is_dir($junction) || $this->isJunction($junction)) {
+            @rmdir($junction);
+        }
+
         $cmd = sprintf(
             'mklink /J %s %s',
             ProcessExecutor::escape(str_replace('/', DIRECTORY_SEPARATOR, $junction)),

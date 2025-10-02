@@ -19,12 +19,10 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Exception;
 use InvalidArgumentException;
-use Iterator;
 use IteratorAggregate;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Traversable;
 
 /**
  * Cookie Collection
@@ -89,7 +87,7 @@ class CookieCollection implements IteratorAggregate, Countable
      *
      * @return int
      */
-    public function count(): int
+    public function count()
     {
         return count($this->cookies);
     }
@@ -197,7 +195,7 @@ class CookieCollection implements IteratorAggregate, Countable
      *
      * @return \ArrayIterator
      */
-    public function getIterator(): Traversable
+    public function getIterator()
     {
         return new ArrayIterator($this->cookies);
     }

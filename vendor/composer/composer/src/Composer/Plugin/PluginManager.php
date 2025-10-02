@@ -52,7 +52,7 @@ class PluginManager
 
     /** @var array<PluginInterface> */
     protected $plugins = array();
-    /** @var array<string, PluginInterface|InstallerInterface> */
+    /** @var array<string, array<PluginInterface|InstallerInterface>> */
     protected $registeredPlugins = array();
 
     /**
@@ -198,7 +198,8 @@ class PluginManager
             }
         }
 
-        if (!$this->isPluginAllowed($package->getName(), $isGlobalPlugin)) {
+        $extra = $package->getExtra();
+        if (!$this->isPluginAllowed($package->getName(), $isGlobalPlugin, isset($extra['plugin-optional']) && true === $extra['plugin-optional'])) {
             $this->io->writeError('Skipped loading "'.$package->getName() . '" '.($isGlobalPlugin ? '(installed globally) ' : '').'as it is not in config.allow-plugins', true, IOInterface::DEBUG);
 
             return;
@@ -209,6 +210,7 @@ class PluginManager
         if (isset($this->registeredPlugins[$package->getName()])) {
             return;
         }
+        $this->registeredPlugins[$package->getName()] = array();
 
         $extra = $package->getExtra();
         if (empty($extra['class'])) {
@@ -275,7 +277,7 @@ class PluginManager
                 if ($separatorPos) {
                     $className = substr($class, $separatorPos + 1);
                 }
-                $code = Preg::replace('{^((?:final\s+)?(?:\s*))class\s+('.preg_quote($className).')}mi', '$1class $2_composer_tmp'.self::$classCounter, $code, 1);
+                $code = Preg::replace('{^((?:(?:final|readonly)\s+)*(?:\s*))class\s+('.preg_quote($className).')}mi', '$1class $2_composer_tmp'.self::$classCounter, $code, 1);
                 $code = strtr($code, array(
                     '__FILE__' => var_export($path, true),
                     '__DIR__' => var_export(dirname($path), true),
@@ -294,14 +296,14 @@ class PluginManager
                 $this->io->writeError('<warning>Loading "'.$package->getName() . '" '.($isGlobalPlugin ? '(installed globally) ' : '').'which is a legacy composer-installer built for Composer 1.x, it is likely to cause issues as you are running Composer 2.x.</warning>');
                 $installer = new $class($this->io, $this->composer);
                 $this->composer->getInstallationManager()->addInstaller($installer);
-                $this->registeredPlugins[$package->getName()] = $installer;
+                $this->registeredPlugins[$package->getName()][] = $installer;
             } elseif (class_exists($class)) {
                 if (!is_a($class, 'Composer\Plugin\PluginInterface', true)) {
                     throw new \RuntimeException('Could not activate plugin "'.$package->getName().'" as "'.$class.'" does not implement Composer\Plugin\PluginInterface');
                 }
                 $plugin = new $class();
                 $this->addPlugin($plugin, $isGlobalPlugin, $package);
-                $this->registeredPlugins[$package->getName()] = $plugin;
+                $this->registeredPlugins[$package->getName()][] = $plugin;
             } elseif ($failOnMissingClasses) {
                 throw new \UnexpectedValueException('Plugin '.$package->getName().' could not be initialized, class not found: '.$class);
             }
@@ -326,13 +328,15 @@ class PluginManager
             return;
         }
 
-        $plugin = $this->registeredPlugins[$package->getName()];
-        unset($this->registeredPlugins[$package->getName()]);
-        if ($plugin instanceof InstallerInterface) {
-            $this->composer->getInstallationManager()->removeInstaller($plugin);
-        } else {
-            $this->removePlugin($plugin);
+        $plugins = $this->registeredPlugins[$package->getName()];
+        foreach ($plugins as $plugin) {
+            if ($plugin instanceof InstallerInterface) {
+                $this->composer->getInstallationManager()->removeInstaller($plugin);
+            } else {
+                $this->removePlugin($plugin);
+            }
         }
+        unset($this->registeredPlugins[$package->getName()]);
     }
 
     /**
@@ -353,14 +357,16 @@ class PluginManager
             return;
         }
 
-        $plugin = $this->registeredPlugins[$package->getName()];
-        if ($plugin instanceof InstallerInterface) {
-            $this->deactivatePackage($package);
-        } else {
-            unset($this->registeredPlugins[$package->getName()]);
-            $this->removePlugin($plugin);
-            $this->uninstallPlugin($plugin);
+        $plugins = $this->registeredPlugins[$package->getName()];
+        foreach ($plugins as $plugin) {
+            if ($plugin instanceof InstallerInterface) {
+                $this->composer->getInstallationManager()->removeInstaller($plugin);
+            } else {
+                $this->removePlugin($plugin);
+                $this->uninstallPlugin($plugin);
+            }
         }
+        unset($this->registeredPlugins[$package->getName()]);
     }
 
     /**
@@ -394,9 +400,12 @@ class PluginManager
 
         if ($sourcePackage === null) {
             trigger_error('Calling PluginManager::addPlugin without $sourcePackage is deprecated, if you are using this please get in touch with us to explain the use case', E_USER_DEPRECATED);
-        } elseif (!$this->isPluginAllowed($sourcePackage->getName(), $isGlobalPlugin)) {
-            $this->io->writeError('Skipped loading "'.get_class($plugin).' from '.$sourcePackage->getName() . '" '.($isGlobalPlugin ? '(installed globally) ' : '').' as it is not in config.allow-plugins', true, IOInterface::DEBUG);
-            return;
+        } else {
+            $extra = $sourcePackage->getExtra();
+            if (!$this->isPluginAllowed($sourcePackage->getName(), $isGlobalPlugin, isset($extra['plugin-optional']) && true === $extra['plugin-optional'])) {
+                $this->io->writeError('Skipped loading "'.get_class($plugin).' from '.$sourcePackage->getName() . '" '.($isGlobalPlugin ? '(installed globally) ' : '').' as it is not in config.allow-plugins', true, IOInterface::DEBUG);
+                return;
+            }
         }
 
         $details = array();
@@ -693,9 +702,10 @@ class PluginManager
      *
      * @param string $package
      * @param bool $isGlobalPlugin
+     * @param bool $optional
      * @return bool
      */
-    public function isPluginAllowed($package, $isGlobalPlugin)
+    public function isPluginAllowed($package, $isGlobalPlugin, $optional = false)
     {
         if ($isGlobalPlugin) {
             $rules = &$this->allowGlobalPluginRules;
@@ -763,6 +773,8 @@ class PluginManager
                         break;
                 }
             }
+        } elseif ($optional) {
+            return false;
         }
 
         throw new PluginBlockedException(

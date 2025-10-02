@@ -2462,7 +2462,7 @@ class ServerRequest implements ArrayAccess, ServerRequestInterface
      * @return mixed
      * @deprecated 3.4.0 The ArrayAccess methods will be removed in 4.0.0. Use getParam(), getData() and getQuery() instead.
      */
-    public function offsetGet($name): bool
+    public function offsetGet($name)
     {
         deprecationWarning(
             'The ArrayAccess methods will be removed in 4.0.0.' .
@@ -2490,7 +2490,7 @@ class ServerRequest implements ArrayAccess, ServerRequestInterface
      * @return void
      * @deprecated 3.4.0 The ArrayAccess methods will be removed in 4.0.0. Use withParam() instead.
      */
-    public function offsetSet(mixed $name, $value): void
+    public function offsetSet($name, $value)
     {
         deprecationWarning(
             'The ArrayAccess methods will be removed in 4.0.0.' .
@@ -2507,7 +2507,7 @@ class ServerRequest implements ArrayAccess, ServerRequestInterface
      * @return bool
      * @deprecated 3.4.0 The ArrayAccess methods will be removed in 4.0.0. Use getParam() instead.
      */
-    public function offsetExists(mixed $name) : bool
+    public function offsetExists($name)
     {
         deprecationWarning(
             'The ArrayAccess methods will be removed in 4.0.0.' .
@@ -2528,7 +2528,7 @@ class ServerRequest implements ArrayAccess, ServerRequestInterface
      * @return void
      * @deprecated 3.4.0 The ArrayAccess methods will be removed in 4.0.0. Use withParam() instead.
      */
-    public function offsetUnset($name): void
+    public function offsetUnset($name)
     {
         deprecationWarning(
             'The ArrayAccess methods will be removed in 4.0.0.' .
