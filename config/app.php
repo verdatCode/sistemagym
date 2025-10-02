@@ -1,8 +1,6 @@
 <?php
-
 use Cake\Mailer\Email;
 use Cake\Mailer\TransportFactory;
-
 return [
     /**
      * Debug Level:
@@ -13,7 +11,7 @@ return [
      * Development Mode:
      * true: Errors and warnings shown.
      */
-    'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
+    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
 
     /**
      * Configure basic information about the application.
@@ -181,32 +179,32 @@ return [
      */
     'EmailTransport' => [
         // 'default' => [
-        // 'className' => 'Mail',
-        // The following keys are used in SMTP transports
-        // 'host' => 'localhost',
-        // 'port' => 25,
-        // 'timeout' => 30,
-        // 'username' => 'user',
-        // 'password' => 'secret',
-        // 'client' => null,
-        // 'tls' => null,
-        // 'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
+            // 'className' => 'Mail',
+            // The following keys are used in SMTP transports
+            // 'host' => 'localhost',
+            // 'port' => 25,
+            // 'timeout' => 30,
+            // 'username' => 'user',
+            // 'password' => 'secret',
+            // 'client' => null,
+            // 'tls' => null,
+            // 'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
         // ],
-        'default' => [
+		'default' => [
             'host' => 'ssl://smtp.gmail.com',
-            'port' => 465,
-            'username' => 'cakephp.projects@gmail.com',
-            'password' => 'dkeqtbbgjrjolzvw',
-            'className' => 'Smtp',
-            'log' => true,
-            'context' => [
+              'port' => 465,
+              'username' => 'cakephp.projects@gmail.com',
+              'password' => 'dkeqtbbgjrjolzvw',
+              'className' => 'Smtp',
+              'log' => true,
+              'context' => [
                 'ssl' => [
                     'verify_peer' => false,
                     'verify_peer_name' => false,
                     'allow_self_signed' => true
                 ]
-            ]
-        ],
+              ]
+		],
     ],
 
     /**
@@ -239,18 +237,22 @@ return [
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
             'host' => 'localhost',
-            'username' => 'root',
-            'password' => '',
+            'username' => 'veridatp_usergym',
+            'password' => 'gimNass887**4',
             'database' => 'veridatp_gimnasio',
-            'encoding' => 'utf8mb4',
+            'encoding' => 'utf8',
             'timezone' => 'UTC',
+            'flags' => [],
             'cacheMetadata' => true,
+            'log' => false,
+            'quoteIdentifiers' => false,
+            'url' => env('DATABASE_URL', null),
         ],
-        'install' => [
+		'install' => [
             'className' => 'Cake\Database\Connection',
             'driver' => 'Cake\Database\Driver\Mysql',
             'persistent' => false,
-            'host' => '',
+            'host' => '',            
             'username' => '',
             'password' => '',
             'database' => '',
@@ -259,7 +261,7 @@ return [
             'flags' => [],
             'cacheMetadata' => true,
             'log' => false,
-            'quoteIdentifiers' => false,
+            'quoteIdentifiers' => false,           
             'url' => env('DATABASE_URL', null),
         ],
 
@@ -301,7 +303,7 @@ return [
     //         'quoteIdentifiers' => false,
     //         'url' => env('DATABASE_URL', null),
     //     ],
-    // 	'install' => [
+	// 	'install' => [
     //         'className' => 'Cake\Database\Connection',
     //         'driver' => 'Cake\Database\Driver\Mysql',
     //         'persistent' => false,

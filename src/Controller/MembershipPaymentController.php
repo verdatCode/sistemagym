@@ -1,7 +1,6 @@
 <?php
 namespace App\Controller;
 use App\Controller\AppController;
-use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
 use Gmgt_paypal_class;
 
@@ -143,8 +142,6 @@ class MembershipPaymentController extends AppController
 	
 	public function generatePaymentInvoice()
 	{
-		Log::debug("generatePaymentInvoice");
-		Log::debug($this->request->data);
 		$this->set("edit",false);
 		$members = $this->MembershipPayment->GymMember->find("list",["keyField"=>"id","valueField"=>"name"])->where(["role_name"=>"member"]);
 		$members = $members->select(["id","name"=>$members->func()->concat(["first_name"=>"literal"," ","last_name"=>"literal"])])->hydrate(false)->toArray();
