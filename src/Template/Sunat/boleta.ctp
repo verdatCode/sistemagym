@@ -22,123 +22,82 @@ echo $this->Html->script('select2.min');
         box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         margin: 20px auto;
         max-width: 1200px;
-        background: var(--dark-bg);
+
     }
 
     .header-section {
         border-bottom: 1px solid var(--border-color);
         padding: 30px;
-        background: var(--darker-bg);
+
     }
 
     .logo-container {
         width: 80px;
         height: 80px;
-        background: var(--border-color);
+
         border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 24px;
         font-weight: bold;
-        color: #ffffff;
+
     }
 
     .company-title {
         font-size: 1.8rem;
         font-weight: 700;
         margin-bottom: 5px;
-        color: #ffffff;
+
     }
 
     .company-subtitle {
         font-size: 1.25rem;
         font-weight: 400;
-        color: var(--text-light);
+
     }
 
     .invoice-info-card {
         border: 2px dashed var(--border-color);
         border-radius: 8px;
         padding: 20px;
-        background: rgba(255, 255, 255, 0.02);
+
     }
 
     .invoice-info-card h6 {
         font-size: 0.875rem;
         margin-bottom: 8px;
-        color: var(--text-light);
+
     }
 
     .ruc-number {
         font-size: 1.125rem;
         font-weight: 600;
         margin-bottom: 15px;
-        color: #ffffff;
+
     }
 
-    .form-control {
-        background: var(--darkest-bg);
-        border: 1px solid var(--border-color);
-        color: #ffffff;
-        border-radius: 6px;
-        padding: 10px 15px;
+    .conten-form {
+        margin: 15px;
     }
 
-    .form-control:focus {
-        background: var(--darker-bg);
-        border-color: var(--primary-blue);
-        color: #ffffff;
-        box-shadow: 0 0 0 0.2rem rgba(74, 158, 255, 0.25);
-    }
 
-    .form-control::placeholder {
-        color: var(--text-muted);
-    }
+
 
     label {
-        color: var(--text-light);
+
         font-weight: 500;
         margin-bottom: 8px;
     }
 
     .items-section {
-        background: rgba(255, 255, 255, 0.02);
+
         border-radius: 8px;
         padding: 20px;
         margin: 30px 0;
     }
 
-    .products-table {
-        width: 100%;
-        color: #ffffff;
-        border-collapse: separate;
-        border-spacing: 0 8px;
-    }
 
-    .products-table thead th {
-        background: var(--darker-bg);
-        padding: 12px;
-        border: none;
-        color: var(--text-light);
-        font-weight: 600;
-    }
-
-    .products-table tbody tr {
-        background: var(--darkest-bg);
-        transition: all 0.3s ease;
-    }
-
-    .products-table tbody tr:hover {
-        background: var(--darker-bg);
-        transform: translateX(5px);
-    }
-
-    .products-table tbody td {
-        padding: 15px 12px;
-        border: none;
-        color: #ffffff;
-    }
 
     .empty-state {
         text-align: center;
@@ -147,18 +106,18 @@ echo $this->Html->script('select2.min');
 
     .empty-state-icon {
         font-size: 3rem;
-        color: var(--text-muted);
+
         margin-bottom: 15px;
     }
 
     .empty-state-text {
-        color: var(--text-light);
+
         font-size: 1.1rem;
         margin-bottom: 20px;
     }
 
     .btn-primary {
-        background: var(--primary-blue);
+
         border: none;
         padding: 10px 20px;
         border-radius: 6px;
@@ -187,7 +146,7 @@ echo $this->Html->script('select2.min');
     }
 
     .totals-card {
-        background: var(--darkest-bg);
+
         border: 1px solid var(--border-color);
         border-radius: 8px;
         padding: 25px;
@@ -199,7 +158,7 @@ echo $this->Html->script('select2.min');
         align-items: center;
         margin-bottom: 15px;
         padding: 8px 0;
-        color: #ffffff;
+
     }
 
     .total-row:last-child {
@@ -223,7 +182,7 @@ echo $this->Html->script('select2.min');
     }
 
     .modal-content {
-        background: var(--darker-bg);
+
         border: 1px solid var(--border-color);
     }
 
@@ -235,17 +194,11 @@ echo $this->Html->script('select2.min');
         border-top: 1px solid var(--border-color);
     }
 
-    .badge-info {
-        background: var(--primary-blue);
-    }
 
-    .badge-secondary {
-        background: var(--border-color);
-    }
 
     .btn-submit-invoice {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: #ffffff;
+
         border: none;
         padding: 12px 30px;
         border-radius: 6px;
@@ -276,7 +229,7 @@ echo $this->Html->script('select2.min');
     .custom-switch .custom-control-label {
         padding-left: 60px;
         padding-top: 2px;
-        color: #ffffff;
+
         margin-bottom: 0;
         font-size: 0.9rem;
     }
@@ -402,7 +355,7 @@ echo $this->Html->script('select2.min');
             </div>
 
             <!-- Form Content -->
-            <div class="p-3">
+            <div class="conten-form">
 
                 <!-- Cliente Row -->
                 <div class="form-row mb-4">
@@ -425,14 +378,13 @@ echo $this->Html->script('select2.min');
                         ]) ?>
                     </div>
                     <div class="col-md-3">
-                        <?= $this->Form->control('numDoc', [
-                            'label' => 'Número de documento *',
-                            'placeholder' => 'Número de documento',
-                            'class' => 'form-control',
-                            'required' => true,
-                            'id' => 'numDoc'
-                        ]) ?>
-                        <small id="doc-error" class="text-danger"></small>
+                        <label for="numDoc">Número de documento *</label>
+                        <div class="input-group">
+                            <input type="text" name="numDoc" id="numDoc" class="form-control" placeholder="Número de documento" required>
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">Go!</button>
+                            </span>
+                        </div>
                     </div>
                 </div>
 
@@ -447,18 +399,14 @@ echo $this->Html->script('select2.min');
                     </div>
                 </div>
 
-                <!-- Fecha de Emisión -->
+                <!-- Fecha de Emisión Operación y Moneda -->
                 <div class="form-row mb-4">
-                    <div class="col-md-6">
+                    <div class="col-md-2">
                         <label for="startDate">Fecha de Emisión *</label>
                         <input type="text" autocomplete="off" name="start_date" id="startDate"
                             class="form-control" value="<?= date('d/m/Y') ?>" required>
                     </div>
-                </div>
-
-                <!-- Operación y Moneda -->
-                <div class="form-row mb-4">
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <?= $this->Form->control('tipoOperacion', [
                             'value' => 'Venta Interna',
                             'label' => 'Tipo de Operación *',
@@ -467,7 +415,7 @@ echo $this->Html->script('select2.min');
                             'required' => true
                         ]) ?>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-5">
                         <?= $this->Form->control('moneda', [
                             'type' => 'select',
                             'label' => 'Moneda *',
@@ -483,9 +431,11 @@ echo $this->Html->script('select2.min');
                     </div>
                 </div>
 
+
+
                 <!-- Nota -->
                 <div class="form-row mb-5">
-                    <div class="col-md-12">
+                    <div class="col-md-10">
                         <?= $this->Form->control('nota', [
                             'label' => 'Nota (opcional)',
                             'placeholder' => 'Agregar nota a la factura (opcional)',
@@ -493,48 +443,59 @@ echo $this->Html->script('select2.min');
 
                         ]) ?>
                     </div>
-                </div>
 
-                <!-- Sección de Productos -->
-                <div class="items-section">
-                    <div id="emptyState" class="empty-state">
-                        <div class="empty-state-icon">
-                            <i class="far fa-box-open"></i>
-                        </div>
-                        <div class="empty-state-text">
-                            No hay productos agregados
-                        </div>
-                        <button type="button" class="btn btn-primary" onclick="openProductModal()">
+                    <div class="col-md-2" style="height: 63px; display: flex; align-items: flex-end; justify-content: flex-end;">
+
+                        <button type="button" class="btn btn-primary " onclick="openProductModal()">
                             <i class="fas fa-plus mr-2"></i>
                             Agregar Producto
                         </button>
+
                     </div>
 
-                    <!-- Tabla de Productos -->
-                    <div id="productsTable" style="display: none;">
-                        <table class="products-table">
-                            <thead>
-                                <tr>
-                                    <th width="8%">Cant.</th>
-                                    <th width="40%">Descripción</th>
-                                    <th width="13%">P. Unit.</th>
-                                    <th width="13%">Subtotal</th>
-                                    <th width="13%">IGV</th>
-                                    <th width="13%">Total</th>
-                                    <th width="10%">Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productsTableBody">
-                            </tbody>
-                        </table>
-                        <div class="text-center mt-3">
-                            <button type="button" class="btn btn-primary" onclick="openProductModal()">
-                                <i class="fas fa-plus mr-2"></i>
-                                Agregar Otro Producto
-                            </button>
+                </div>
+
+
+
+
+                <div class="form-row mb-5">
+                    <div class="col-md-12">
+                        <div class="items-section">
+                            <div id="emptyState" class="empty-state">
+                                <div class="empty-state-icon">
+                                    <i class="far fa-box-open"></i>
+                                </div>
+                                <div class="empty-state-text">
+                                    No hay productos agregados
+                                </div>
+
+                            </div>
+
+                            <!-- Tabla de Productos -->
+                            <div id="productsTable" style="display: none;">
+                                <table class="table table-hover ">
+                                    <thead>
+                                        <tr>
+                                            <th width="8%">Cant.</th>
+                                            <th width="40%">Descripción</th>
+                                            <th width="13%">P. Unit.</th>
+                                            <th width="13%">Subtotal</th>
+                                            <th width="13%">IGV</th>
+                                            <th width="13%">Total</th>
+                                            <th width="10%">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="productsTableBody">
+                                    </tbody>
+                                </table>
+
+                            </div>
                         </div>
+
                     </div>
                 </div>
+
+                <!-- Sección de Productos -->
 
                 <!-- Totals Section -->
                 <div class="row">
@@ -609,16 +570,19 @@ echo $this->Html->script('select2.min');
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="productCode">
-                                <i class="fas fa-barcode mr-2"></i>Código (Opcional)
+                            <label for="productPrice">
+                                <i class="fas fa-dollar-sign mr-2"></i>Precio Unitario S/ (sin IGV) *
                             </label>
-                            <input type="text" class="form-control" id="productCode"
-                                placeholder="Código del producto">
+                            <input type="number" class="form-control" id="productPrice"
+                                min="0" step="1" placeholder="0.00" required>
+                            <div class="invalid-feedback">
+                                Por favor ingresa un precio válido.
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-row">
-                        <div class="col-12 mb-3">
+                        <div class="col-md-12 mb-3">
                             <label for="productDesc">
                                 <i class="fas fa-align-left mr-2"></i>Descripción *
                             </label>
@@ -631,23 +595,8 @@ echo $this->Html->script('select2.min');
                     </div>
 
                     <div class="form-row">
-                        <div class="col-md-6 mb-3">
-                            <label for="productPrice">
-                                <i class="fas fa-dollar-sign mr-2"></i>Precio Unitario (sin IGV) *
-                            </label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">S/</span>
-                                </div>
-                                <input type="number" class="form-control" id="productPrice"
-                                    min="0" step="0.01" placeholder="0.00" required>
-                            </div>
-                            <small class="form-text text-muted">Precio base sin incluir IGV</small>
-                            <div class="invalid-feedback">
-                                Por favor ingresa un precio válido.
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-3">
+
+                        <div class="col-md-12 mb-3">
                             <div class="custom-control custom-checkbox mt-4 pt-2">
                                 <input type="checkbox" class="custom-control-input"
                                     id="applyIGV" checked>
@@ -658,20 +607,26 @@ echo $this->Html->script('select2.min');
                         </div>
                     </div>
 
-                    <div id="calculationBreakdown" class="price-breakdown" style="display: none;">
-                        <div class="price-breakdown-item">
-                            <span>Subtotal (Precio × Cantidad):</span>
-                            <span id="breakdownSubtotal">S/ 0.00</span>
-                        </div>
-                        <div class="price-breakdown-item">
-                            <span>IGV (18%):</span>
-                            <span id="breakdownIGV">S/ 0.00</span>
-                        </div>
-                        <div class="price-breakdown-item" style="font-weight: 600; border-top: 1px solid var(--border-color); padding-top: 5px; margin-top: 5px;">
-                            <span>Total:</span>
-                            <span id="breakdownTotal">S/ 0.00</span>
+                    <div class="form-row">
+                        <div class="col-md-12">
+
+                            <div id="calculationBreakdown" class="price-breakdown" style="display: none;">
+                                <div class="price-breakdown-item">
+                                    <span>Subtotal (Precio × Cantidad):</span>
+                                    <span id="breakdownSubtotal">S/ 0.00</span>
+                                </div>
+                                <div class="price-breakdown-item">
+                                    <span>IGV (18%):</span>
+                                    <span id="breakdownIGV">S/ 0.00</span>
+                                </div>
+                                <div class="price-breakdown-item" style="font-weight: 600; border-top: 1px solid var(--border-color); padding-top: 5px; margin-top: 5px;">
+                                    <span>Total:</span>
+                                    <span id="breakdownTotal">S/ 0.00</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -752,11 +707,12 @@ echo $this->Html->script('select2.min');
     // Función para agregar producto a la tabla
     function addProductToTable() {
         if (!validateProductForm()) {
+            console.log('Formulario de producto inválido');
             return;
         }
 
         const cantidad = parseFloat($('#productCant').val());
-        const codigo = $('#productCode').val().trim();
+
         const descripcion = $('#productDesc').val().trim();
         const precioBase = parseFloat($('#productPrice').val());
         const applyIGV = $('#applyIGV').is(':checked');
@@ -769,7 +725,6 @@ echo $this->Html->script('select2.min');
         const product = {
             id: productCounter++,
             cantidad: cantidad,
-            codigo: codigo,
             descripcion: descripcion,
             precio_base: precioBase,
             subtotal: subtotal,
@@ -795,6 +750,7 @@ echo $this->Html->script('select2.min');
         const precio = parseFloat($('#productPrice').val());
 
         if (!cantidad || cantidad <= 0) {
+            alert('La cantidad debe ser mayor que cero.');
             $('#productCant').addClass('is-invalid');
             isValid = false;
         } else {
@@ -802,6 +758,7 @@ echo $this->Html->script('select2.min');
         }
 
         if (!descripcion) {
+            alert('La descripción es requerida.');
             $('#productDesc').addClass('is-invalid');
             isValid = false;
         } else {
@@ -809,6 +766,7 @@ echo $this->Html->script('select2.min');
         }
 
         if (!precio || precio <= 0) {
+            alert('El precio debe ser mayor que cero.');
             $('#productPrice').addClass('is-invalid');
             isValid = false;
         } else {
